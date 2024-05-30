@@ -1,0 +1,28 @@
+.btn {
+  font-family: var(--font-primary);
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--color-primary);
+  padding: 12px 36px;
+  border: 2px solid var(--color-primary);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+  text-wrap: nowrap;
+}
+
+.btn:hover,
+.btn:focus {
+  box-shadow: inset 0 0 0 2em #fff;
+  color: var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .btn {
+    padding: 8px 24px;
+  }
+}
+

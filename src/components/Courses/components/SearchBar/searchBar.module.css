@@ -1,0 +1,27 @@
+.label {  
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+
+.input {
+  padding-left: 16px;
+  outline: none;
+  border: 2px solid var(--color-secondary);
+  border-radius: 4px;
+}
+
+.input:focus {
+  border: 2px solid var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+    width: 100%;
+  }
+
+  .label input {
+    flex-grow: 1;
+  }
+}
