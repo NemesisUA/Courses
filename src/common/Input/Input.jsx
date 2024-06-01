@@ -10,6 +10,7 @@ const Input = ({
 	placeholderText = '',
 	value,
 	onChange,
+	error,
 }) => {
 	return (
 		<label className={styles.label}>
@@ -22,6 +23,7 @@ const Input = ({
 				value={value}
 				onChange={onChange}
 			/>
+			{error ? <div className={styles.errorText}>{error}</div> : <div> </div>}
 		</label>
 	);
 };

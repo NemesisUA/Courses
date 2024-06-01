@@ -2,6 +2,7 @@
   font-family: var(--font-primary);
   font-weight: bold;
   font-size: 1.6rem;
+  max-height: 50px;
   text-transform: uppercase;
   color: #fff;
   background-color: var(--color-primary);
