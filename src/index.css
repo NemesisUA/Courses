@@ -23,7 +23,6 @@ ul, li {
 }
 
 body {
-  margin: 0;
   font-size: 1.6rem;
   font-family: var(--font-primary);
   font-style: normal;
@@ -31,6 +30,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-main);
   background-color: #f7f7f7;
+  margin: 0;
+  padding-bottom: 20px;
 }
 
 .wrapper {
@@ -49,6 +50,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 64px;
   margin: 71px 0 33px;
 }
 

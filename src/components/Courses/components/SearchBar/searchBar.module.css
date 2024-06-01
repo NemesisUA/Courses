@@ -1,27 +1,12 @@
-.label {  
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-}
-
-
-.input {
-  padding-left: 16px;
-  outline: none;
-  border: 2px solid var(--color-secondary);
-  border-radius: 4px;
-}
-
-.input:focus {
-  border: 2px solid var(--color-primary);
+.container {
+  display: flex; 
+  width: 100%;
+  max-width: 564px;
+  gap: 16px;  
 }
 
 @media screen and (max-width: 768px) {
-  .label {
-    width: 100%;
-  }
-
-  .label input {
-    flex-grow: 1;
+  .container {
+    max-width: 100%;
   }
 }

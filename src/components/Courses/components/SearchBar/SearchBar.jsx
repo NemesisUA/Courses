@@ -1,19 +1,15 @@
 import React from 'react';
 
+import { Button, Input } from '../../../../common';
+
 import styles from './searchBar.module.css';
-import { Button } from '../../../../common';
 
 const SearchBar = () => {
 	return (
-		<label className={styles.label} htmlFor='search'>
-			<input
-				className={styles.input}
-				id='search'
-				type='search'
-				placeholder='input text'
-			/>
+		<div className={styles.container}>
+			<Input type='search' name='search' placeholderText='input text' />
 			<Button buttonText='search' />
-		</label>
+		</div>
 	);
 };
 
