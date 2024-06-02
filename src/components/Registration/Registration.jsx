@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '../../common';
 
 import styles from './registration.module.css';
 
 const Registration = () => {
+	const navigate = useNavigate();
+
 	const [form, setForm] = useState({
 		name: '',
 		email: '',
@@ -34,7 +37,7 @@ const Registration = () => {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0) {
-			alert('Registered!');
+			navigate('/');
 		}
 	}
 
@@ -77,9 +80,10 @@ const Registration = () => {
 
 					<br />
 					<Button type='submit' buttonText='Registration' />
-					<p className={styles.redirectText}>
-						If you have an account you may Login
-					</p>
+					<p className={styles.redirectText}>If you have an account you may</p>
+					<Link to='/login'>
+						<b>Login</b>
+					</Link>
 				</div>
 			</form>
 		</div>

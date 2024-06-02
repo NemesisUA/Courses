@@ -1,11 +1,17 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { CourseInfo, EmptyCourseList, Layout } from './components';
+import {
+	CourseInfo,
+	EmptyCourseList,
+	Layout,
+	Login,
+	Registration,
+} from './components';
 import HomePage from './pages/HomePage';
+import PageNotFound from './pages/PageNotFound';
 
 import './App.css';
-import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
 	return (
@@ -14,6 +20,8 @@ const App = () => {
 				<Route index element={<HomePage />} />
 				<Route path='/courses/:id' element={<CourseInfo />} />
 				<Route path='/no-courses' element={<EmptyCourseList />} />
+				<Route path='login' element={<Login />} />
+				<Route path='registration' element={<Registration />} />
 				<Route path='*' element={<PageNotFound />} />
 			</Route>
 		</Routes>

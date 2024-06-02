@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '../../common';
 
 import styles from './login.module.css';
 
 const Login = () => {
+	const navigate = useNavigate();
+
 	const [form, setForm] = useState({
 		email: '',
 		password: '',
@@ -33,7 +36,7 @@ const Login = () => {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0) {
-			alert('Logined');
+			navigate('/');
 		}
 	}
 
@@ -65,10 +68,13 @@ const Login = () => {
 					/>
 
 					<br />
-					<Button type='submit' buttonText='Registration' />
+					<Button type='submit' buttonText='Login' />
 					<p className={styles.redirectText}>
-						If you don't have an account you may Registration
+						If you don't have an account you may
 					</p>
+					<Link to='/registration'>
+						<b>Registration</b>
+					</Link>
 				</div>
 			</form>
 		</div>
