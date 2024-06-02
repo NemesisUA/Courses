@@ -11,18 +11,22 @@ const Input = ({
 	value,
 	onChange,
 	error,
+	children,
 }) => {
 	return (
-		<label className={styles.label}>
+		<label className={`${styles.label} ${styles[styleAdditional]}`}>
 			{labelText}
-			<input
-				className={`${styles.input} ${styles[styleAdditional]}`}
-				type={type}
-				name={name}
-				placeholder={placeholderText}
-				value={value}
-				onChange={onChange}
-			/>
+			<div className={styles.align}>
+				<input
+					className={styles.input}
+					type={type}
+					name={name}
+					placeholder={placeholderText}
+					value={value}
+					onChange={onChange}
+				/>
+				{children}
+			</div>
 			{error ? <div className={styles.errorText}>{error}</div> : <div> </div>}
 		</label>
 	);

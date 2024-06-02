@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import {
 	CourseInfo,
+	CreateCourse,
 	EmptyCourseList,
 	Layout,
 	Login,
@@ -20,6 +21,7 @@ const App = () => {
 				<Route index element={<HomePage />} />
 				<Route path='/courses/:id' element={<CourseInfo />} />
 				<Route path='/no-courses' element={<EmptyCourseList />} />
+				<Route path='/create-course' element={<CreateCourse />} />
 				<Route path='login' element={<Login />} />
 				<Route path='registration' element={<Registration />} />
 				<Route path='*' element={<PageNotFound />} />

@@ -6,32 +6,21 @@
   margin-bottom: 16px;
 }
 
-.align {
-  display: flex;
-  align-items: baseline;
-  gap: 20px;
-}
-
-.input {
-  height: 50px;
-  flex-grow: 1;
-  padding: 0 8px 0 16px;
+.textarea {  
+  max-width: 100%;
+  padding: 8px 16px;
   outline: none;
   border: 2px solid var(--color-secondary);
   border-radius: 4px;
   margin-top: 16px;
 }
 
-.input:focus {
+.textarea:focus {
   border: 2px solid var(--color-primary);
 }
 
 input:invalid {
   border: 1px solid red;
-}
-
-.maxWidth400 {
-  max-width: 360px;
 }
 
 .errorText {

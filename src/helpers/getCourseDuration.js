@@ -1,5 +1,5 @@
 const formatCreationDate = (minsNumber) => {
-	let hours = Math.floor(minsNumber / 60);
+	let hours = Math.floor(+minsNumber / 60);
 	let hoursStr = hours < 10 ? `0${hours}` : `${hours}`;
 
 	let postfix = 'hours';

@@ -1,0 +1,37 @@
+.formContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 32px 80px 60px;
+  margin: 0 auto;
+}
+
+.authorsContainer {
+  display: flex;
+  width: 100%;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.authors {
+  flex-grow: 1;
+}
+
+.authorsList {
+  width: 250px;
+  margin-left: 20px;
+}
+
+.authorsList ul {
+  list-style: none;
+}
+
+.durationContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
