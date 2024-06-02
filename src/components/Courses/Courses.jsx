@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { CoursesCard } from './components';
-import { Button } from '../../common';
 
-const Courses = ({ coursesList, authorsList, setCourseInfo, setIsShown }) => {
+const Courses = ({ mockedCoursesList, mockedAuthorsList }) => {
+	const [coursesList, setCoursesList] = useState(mockedCoursesList);
+	const navigate = useNavigate();
+
+	if (!coursesList || coursesList.length === 0) {
+		navigate('/no-courses');
+	}
+
 	return (
 		<>
 			<ul>
 				{coursesList.map((course) => (
-					<CoursesCard
-						key={course.id}
-						{...course}
-						setCourseInfo={setCourseInfo}
-						setIsShown={setIsShown}
-					/>
+					<CoursesCard key={course.id} {...course} />
 				))}
 			</ul>
-
-			<Button buttonText='Add New Course' />
 		</>
 	);
 };

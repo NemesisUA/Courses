@@ -4,3 +4,4 @@ export { default as EmptyCourseList } from './EmptyCourseList/EmptyCourseList';
 export { default as Header } from './Header/Header';
 export { default as Login } from './Login/Login';
 export { default as Registration } from './Registration/Registration';
+export { default as Layout } from './Layout';

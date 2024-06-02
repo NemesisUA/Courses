@@ -1,24 +1,20 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../common';
 import { getCourseDuration, formatCreationDate } from '../../helpers';
-import { mockedAuthorsList } from '../../constants';
+import { mockedCoursesList, mockedAuthorsList } from '../../constants';
 
 import styles from './courseInfo.module.css';
 
-const CourseInfo = ({
-	id,
-	title,
-	description,
-	authors = [],
-	duration,
-	creationDate,
-	setIsShown,
-	setCourseInfo,
-}) => {
-	function handleBack() {
-		setCourseInfo({});
-		setIsShown((isShown) => !isShown);
+const CourseInfo = () => {
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const courseInfo = mockedCoursesList.filter((item) => item.id === id)[0];
+	const { title, description, duration, creationDate, authors } = courseInfo;
+
+	function navigateBack() {
+		navigate('/');
 	}
 
 	return (
@@ -62,7 +58,7 @@ const CourseInfo = ({
 			</div>
 
 			<div className={styles.backBtnContainer}>
-				<Button buttonText='back' onClick={handleBack} />
+				<Button buttonText='back' onClick={navigateBack} />
 			</div>
 		</div>
 	);

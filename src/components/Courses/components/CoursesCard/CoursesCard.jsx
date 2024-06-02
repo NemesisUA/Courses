@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../../common';
 import { mockedAuthorsList } from '../../../../constants';
@@ -16,16 +17,10 @@ function CoursesCard({
 	setCourseInfo,
 	setIsShown,
 }) {
-	function handleClick() {
-		setCourseInfo({
-			id,
-			title,
-			description,
-			authors,
-			duration,
-			creationDate,
-		});
-		setIsShown((isShown) => !isShown);
+	const navigate = useNavigate();
+
+	function navigateCourse() {
+		navigate(`/courses/${id}`);
 	}
 
 	return (
@@ -55,7 +50,7 @@ function CoursesCard({
 						<b>Created: </b>
 						{formatCreationDate(creationDate)}
 					</p>
-					<Button buttonText='show course' onClick={handleClick} />
+					<Button buttonText='show course' onClick={navigateCourse} />
 				</div>
 			</div>
 		</div>
