@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { Button } from '../../common';
-import { Link, useNavigate } from 'react-router-dom';
-import NewCourseForm from './components/NewCourseForm/NewCourseForm';
+import { useNavigate } from 'react-router-dom';
+
 import { checkNewCourseErrors } from '../../helpers';
+import { NewCourseForm } from './components';
 
 import styles from './createCourse.module.css';
 
@@ -35,6 +36,7 @@ const CreateCourse = () => {
 		newErrors = checkNewCourseErrors(form);
 		setErrors(newErrors);
 
+		// ToDo
 		if (Object.keys(newErrors).length === 0) {
 			console.log('new course created!!!');
 			//navigate('/');

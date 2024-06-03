@@ -2,14 +2,21 @@ import React from 'react';
 
 import styles from './authorItem.module.css';
 
-const AuthorItem = ({ id, name }) => {
+const AuthorItem = ({ id, name, setCourseAuthors }) => {
+	function addAuthor(idx) {
+		setCourseAuthors((prev) => [...prev, { id: idx, name }]);
+	}
+
 	return (
 		<div className={styles.container}>
 			<p>{name}</p>
-			<div className={styles.buttonsContainer}>
-				<button className={styles.add}>&#10009;</button>
-				<button className={styles.delete}>&#x1F5D1;</button>
-			</div>
+			<button
+				className={styles.add}
+				type='button'
+				onClick={() => addAuthor(id)}
+			>
+				&#10009;
+			</button>
 		</div>
 	);
 };

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
 import { Button, Input, Textarea } from '../../../../common';
-import AuthorItem from '../AuthorItem/AuthorItem';
+
 import { getCourseDuration } from '../../../../helpers';
 import { mockedAuthorsList } from '../../../../constants';
+import AuthorItem from '../AuthorItem/AuthorItem';
+import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
 
 import styles from './newCourseForm.module.css';
 
 const NewCourseForm = ({ handleChange, form, errors }) => {
 	const [authors, setAuthors] = useState(mockedAuthorsList || []);
+	const [courseAuthors, setCourseAuthors] = useState([]);
 
 	function handleCreateAuthor() {
 		setAuthors(...authors, { id: Date.now(), name: form.authorName });
@@ -78,19 +81,32 @@ const NewCourseForm = ({ handleChange, form, errors }) => {
 						<h3>Authors List</h3>
 						<ul>
 							{authors.map((author) => (
-								<AuthorItem key={author.id} {...author} />
+								<AuthorItem
+									key={author.id}
+									{...author}
+									setCourseAuthors={setCourseAuthors}
+								/>
 							))}
 						</ul>
 					</div>
 
 					<div className={styles.authorsList}>
 						<h2>Course Authors</h2>
-						<p>authors list is empty</p>
-						{/* <ul>
-							{authors.map((author) => (
-								<li key={author.id}>{author.name}</li>
-							))}
-						</ul> */}
+						{!courseAuthors.length ? (
+							<p>authors list is empty</p>
+						) : (
+							<ul>
+								{courseAuthors.map((author) => (
+									<CourseAuthorsItem
+										key={author.id}
+										{...author}
+										setCourseAuthors={setCourseAuthors}
+									>
+										{author.name}
+									</CourseAuthorsItem>
+								))}
+							</ul>
+						)}
 					</div>
 				</div>
 			</div>
