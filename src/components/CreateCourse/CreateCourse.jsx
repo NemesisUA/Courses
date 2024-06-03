@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-
-import { Button } from '../../common';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { CoursesContext } from '../../hoc/CoursesProvider';
+import { Button } from '../../common';
+import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
 
 import styles from './createCourse.module.css';
-import { NewCourseForm } from './components';
 
 const CreateCourse = () => {
+	const { courses, setCourses } = useContext(CoursesContext);
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
@@ -53,7 +54,7 @@ const CreateCourse = () => {
 
 		setErrors({});
 	}
-
+	console.log('courses-');
 	return (
 		<div className={styles.container}>
 			<h1>Course Edit/Create Page</h1>
