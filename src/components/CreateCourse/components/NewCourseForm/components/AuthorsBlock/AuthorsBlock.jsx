@@ -13,10 +13,16 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors, errors }) => {
 	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
 
 	const [newAuthorName, setNewAuthorName] = useState('');
+	const [newAuthorError, setNewAuthorError] = useState('');
 
 	function handleCreateAuthor(e) {
 		e.preventDefault();
 
+		if (newAuthorName.length < 2) {
+			setNewAuthorError('Text length should be at least 2 characters');
+			return;
+		}
+		setNewAuthorError('');
 		const newAuthor = { id: uuidv4(), name: newAuthorName };
 
 		setAuthorsAll([...authorsAll, newAuthor]);
@@ -36,7 +42,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors, errors }) => {
 					value={newAuthorName}
 					onChange={(e) => setNewAuthorName(e.target.value)}
 					required
-					error={errors.authorName}
+					error={newAuthorError}
 				>
 					<Button buttonText='create author' onClick={handleCreateAuthor} />
 				</Input>
