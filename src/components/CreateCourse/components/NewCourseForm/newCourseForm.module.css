@@ -9,26 +9,6 @@
   margin: 0 auto;
 }
 
-.authorsContainer {
-  display: flex;
-  width: 100%;
-  gap: 50px;
-  justify-content: space-between;
-}
-
-.authors {
-  flex-grow: 1;
-}
-
-.authorsList {
-  width: 250px;
-  margin-left: 20px;
-}
-
-.authorsList ul {
-  list-style: none;
-}
-
 .durationContainer {
   display: flex;
   justify-content: flex-start;

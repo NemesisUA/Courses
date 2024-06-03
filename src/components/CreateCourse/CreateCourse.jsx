@@ -4,9 +4,9 @@ import { Button } from '../../common';
 import { useNavigate } from 'react-router-dom';
 
 import { checkNewCourseErrors } from '../../helpers';
-import { NewCourseForm } from './components';
 
 import styles from './createCourse.module.css';
+import { NewCourseForm } from './components';
 
 const CreateCourse = () => {
 	const navigate = useNavigate();
@@ -15,7 +15,7 @@ const CreateCourse = () => {
 		title: '',
 		description: '',
 		duration: '',
-		authorName: '',
+		authors: '',
 	});
 	const [errors, setErrors] = useState({});
 
@@ -48,7 +48,7 @@ const CreateCourse = () => {
 			title: '',
 			description: '',
 			duration: '',
-			authorName: '',
+			authors: '',
 		});
 
 		setErrors({});
