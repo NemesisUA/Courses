@@ -19,6 +19,10 @@
   color: var(--text-dark);
 }
 
+.cardDescription {
+  flex-grow: 1;
+}
+
 .cardAutorsBlock {
   min-width: 310px;
 }

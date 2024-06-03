@@ -32,6 +32,7 @@
 
 .leftBlock { 
   padding-left: 20px;
+  flex-grow: 1;
 }
 
 .backBtnContainer {

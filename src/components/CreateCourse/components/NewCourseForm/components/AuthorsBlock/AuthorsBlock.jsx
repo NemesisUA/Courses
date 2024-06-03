@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
+import { AuthorsAllContext } from '../../../../../../hoc/AuthorsAllProvider';
 import { Button, Input } from '../../../../../../common';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
-import { mockedAuthorsList } from '../../../../../../constants';
 
 import styles from './authorsBlock.module.css';
 
-const AuthorsBlock = ({ handleChange, form, errors }) => {
-	const [authors, setAuthors] = useState(mockedAuthorsList || []);
-	const [courseAuthors, setCourseAuthors] = useState([]);
+const AuthorsBlock = ({ courseAuthors, setCourseAuthors, errors }) => {
+	const { authorsAll, setAuthorsAll } = useContext(AuthorsAllContext);
+	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
 
 	const [newAuthorName, setNewAuthorName] = useState('');
 
 	function handleCreateAuthor(e) {
 		e.preventDefault();
 
-		setAuthors([...authors, { id: Date.now(), name: newAuthorName }]);
+		const newAuthor = { id: uuidv4(), name: newAuthorName };
+
+		setAuthorsAll([...authorsAll, newAuthor]);
+		setAuthorAccessible([...authorAccessible, newAuthor]);
 		setNewAuthorName('');
 	}
 
@@ -39,13 +43,13 @@ const AuthorsBlock = ({ handleChange, form, errors }) => {
 
 				<h3>Authors List</h3>
 				<ul>
-					{authors.length > 0 &&
-						authors.map((author) => (
+					{authorAccessible.length > 0 &&
+						authorAccessible.map((author) => (
 							<AuthorItem
 								key={author.id}
 								{...author}
 								setCourseAuthors={setCourseAuthors}
-								setAuthors={setAuthors}
+								setAuthorAccessible={setAuthorAccessible}
 							/>
 						))}
 				</ul>
@@ -62,7 +66,7 @@ const AuthorsBlock = ({ handleChange, form, errors }) => {
 								key={author.id}
 								{...author}
 								setCourseAuthors={setCourseAuthors}
-								setAuthors={setAuthors}
+								setAuthorAccessible={setAuthorAccessible}
 							>
 								{author.name}
 							</CourseAuthorsItem>

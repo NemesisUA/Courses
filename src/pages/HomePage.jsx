@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../common';
 import { SearchBar } from '../components/Courses/components';
 import { Courses } from '../components';
-import { mockedCoursesList, mockedAuthorsList } from '../constants';
 
 const HomePage = () => {
 	const navigate = useNavigate();
@@ -18,10 +17,7 @@ const HomePage = () => {
 				/>
 			</div>
 
-			<Courses
-				mockedCoursesList={mockedCoursesList}
-				mockedAuthorsList={mockedAuthorsList}
-			/>
+			<Courses />
 		</>
 	);
 };

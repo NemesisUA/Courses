@@ -6,7 +6,13 @@ import { AuthorsBlock } from './components/idex';
 
 import styles from './newCourseForm.module.css';
 
-const NewCourseForm = ({ handleChange, form, errors }) => {
+const NewCourseForm = ({
+	handleChange,
+	form,
+	courseAuthors,
+	setCourseAuthors,
+	errors,
+}) => {
 	return (
 		<form autoComplete='off'>
 			<div className={styles.formContent}>
@@ -53,7 +59,13 @@ const NewCourseForm = ({ handleChange, form, errors }) => {
 					</b>
 				</div>
 
-				<AuthorsBlock handleChange={handleChange} form={form} errors={errors} />
+				<AuthorsBlock
+					handleChange={handleChange}
+					form={form}
+					courseAuthors={courseAuthors}
+					setCourseAuthors={setCourseAuthors}
+					errors={errors}
+				/>
 			</div>
 		</form>
 	);

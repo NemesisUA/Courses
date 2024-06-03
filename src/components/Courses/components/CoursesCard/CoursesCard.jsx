@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { AuthorsAllContext } from '../../../../hoc/AuthorsAllProvider';
 import { Button } from '../../../../common';
-import { mockedAuthorsList } from '../../../../constants';
 import { getCourseDuration, formatCreationDate } from '../../../../helpers';
 
 import styles from './coursesCard.module.css';
@@ -14,9 +14,8 @@ function CoursesCard({
 	authors = [],
 	duration,
 	creationDate,
-	setCourseInfo,
-	setIsShown,
 }) {
+	const { authorsAll } = useContext(AuthorsAllContext || []);
 	const navigate = useNavigate();
 
 	function navigateCourse() {
@@ -25,22 +24,24 @@ function CoursesCard({
 
 	return (
 		<div className={styles.card}>
-			<h2 className={styles.cardTitle}>{title}</h2>
+			<h2 className={styles.cardTitle}>
+				{title[0].toUpperCase() + title.slice(1).toLowerCase()}
+			</h2>
 			<div className={styles.cardContainer}>
-				<div>
+				<div className={styles.cardDescription}>
 					<p>{description}</p>
 				</div>
 				<div className={styles.cardAutorsBlock}>
 					<p className={styles.nowrap}>
 						<b>Authors: </b>
-						{authors
-							.map(
-								(authorId) =>
-									mockedAuthorsList.filter(
-										(author) => author.id === authorId
-									)[0].name
-							)
-							.join(', ')}
+						{authors &&
+							authors
+								.map(
+									(authorId) =>
+										authorsAll.filter((author) => author.id === authorId)[0]
+											?.name
+								)
+								.join(', ')}
 					</p>
 					<p>
 						<b>Duration: </b>

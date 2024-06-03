@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './authorItem.module.css';
 
-const AuthorItem = ({ id, name, setCourseAuthors, setAuthors }) => {
-	function addAuthor(idx) {
-		setCourseAuthors((prev) => [...prev, { id: idx, name }]);
-		setAuthors((prev) => prev.filter((author) => author.id !== idx));
+const AuthorItem = ({ id, name, setCourseAuthors, setAuthorAccessible }) => {
+	function addAuthor(idx, name) {
+		setCourseAuthors((prev) => [...prev, { id: idx, name: name }]);
+		setAuthorAccessible((prev) => prev.filter((author) => author.id !== idx));
 	}
 
 	return (
@@ -14,7 +14,7 @@ const AuthorItem = ({ id, name, setCourseAuthors, setAuthors }) => {
 			<button
 				className={styles.add}
 				type='button'
-				onClick={() => addAuthor(id)}
+				onClick={() => addAuthor(id, name)}
 			>
 				&#10009;
 			</button>

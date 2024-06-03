@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CoursesCard } from './components';
+import { CoursesContext } from '../../hoc/CoursesProvider';
 
-const Courses = ({ mockedCoursesList, mockedAuthorsList }) => {
-	const [coursesList, setCoursesList] = useState(mockedCoursesList);
+const Courses = () => {
+	const { courses } = useContext(CoursesContext);
 	const navigate = useNavigate();
 
-	if (!coursesList || coursesList.length === 0) {
+	if (courses.length === 0) {
 		navigate('/no-courses');
 	}
 
 	return (
 		<>
 			<ul>
-				{coursesList.map((course) => (
-					<CoursesCard key={course.id} {...course} />
-				))}
+				{courses &&
+					courses.map((course) => <CoursesCard key={course.id} {...course} />)}
 			</ul>
 		</>
 	);

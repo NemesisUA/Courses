@@ -2,10 +2,15 @@ import React from 'react';
 
 import styles from './courseAuthorsItem.module.css';
 
-const CourseAuthorsItem = ({ id, name, setCourseAuthors, setAuthors }) => {
+const CourseAuthorsItem = ({
+	id,
+	name,
+	setCourseAuthors,
+	setAuthorAccessible,
+}) => {
 	function deleteAuthor(idx) {
 		setCourseAuthors((prev) => prev.filter((author) => author.id !== idx));
-		setAuthors((prev) => [...prev, { id: idx, name }]);
+		setAuthorAccessible((prev) => [...prev, { id: idx, name }]);
 	}
 
 	return (

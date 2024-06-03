@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { CoursesContext } from '../../hoc/CoursesProvider';
 import { Button } from '../../common';
@@ -9,15 +10,17 @@ import { checkNewCourseErrors } from '../../helpers';
 import styles from './createCourse.module.css';
 
 const CreateCourse = () => {
-	const { courses, setCourses } = useContext(CoursesContext);
+	const { setCourses } = useContext(CoursesContext);
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
 		title: '',
 		description: '',
 		duration: '',
-		authors: '',
 	});
+
+	const [courseAuthors, setCourseAuthors] = useState([]);
+
 	const [errors, setErrors] = useState({});
 
 	const handleChange = (e) => {
@@ -32,15 +35,28 @@ const CreateCourse = () => {
 		});
 	};
 
-	function createCourse() {
+	function createCourse(e) {
+		e.preventDefault();
 		let newErrors = {};
 		newErrors = checkNewCourseErrors(form);
 		setErrors(newErrors);
 
-		// ToDo
 		if (Object.keys(newErrors).length === 0) {
-			console.log('new course created!!!');
-			//navigate('/');
+			const courseAuthorsIds = courseAuthors.map((author) => author.id);
+			const id = uuidv4();
+
+			const newCourse = {
+				id: id,
+				title: form.title,
+				description: form.description,
+				duration: form.duration,
+				creationDate: new Date().toDateString(),
+				authors: courseAuthorsIds,
+			};
+
+			setCourses((courses) => [...courses, newCourse]);
+			alert('New corse was created!');
+			navigate('/');
 		}
 	}
 
@@ -49,21 +65,29 @@ const CreateCourse = () => {
 			title: '',
 			description: '',
 			duration: '',
-			authors: '',
 		});
-
 		setErrors({});
 	}
-	console.log('courses-');
+
 	return (
 		<div className={styles.container}>
 			<h1>Course Edit/Create Page</h1>
 
-			<NewCourseForm handleChange={handleChange} form={form} errors={errors} />
+			<NewCourseForm
+				handleChange={handleChange}
+				form={form}
+				courseAuthors={courseAuthors}
+				setCourseAuthors={setCourseAuthors}
+				errors={errors}
+			/>
 
 			<div className={styles.buttonsContainer}>
-				<Button buttonText='cancel' onClick={resetForm} />
-				<Button buttonText='create course' onClick={createCourse} />
+				<Button buttonText='cancel' type='reset' onClick={resetForm} />
+				<Button
+					buttonText='create course'
+					type='button'
+					onClick={createCourse}
+				/>
 			</div>
 		</div>
 	);

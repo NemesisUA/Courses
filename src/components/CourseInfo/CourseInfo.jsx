@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { CoursesContext } from '../../hoc/CoursesProvider';
 import { Button } from '../../common';
 import { getCourseDuration, formatCreationDate } from '../../helpers';
-import { mockedCoursesList, mockedAuthorsList } from '../../constants';
 
 import styles from './courseInfo.module.css';
+import { AuthorsAllContext } from '../../hoc/AuthorsAllProvider';
 
 const CourseInfo = () => {
 	const navigate = useNavigate();
+
 	const { id } = useParams();
-	const courseInfo = mockedCoursesList.filter((item) => item.id === id)[0];
+	const { courses } = useContext(CoursesContext);
+	const { authorsAll } = useContext(AuthorsAllContext);
+	const courseInfo = courses.filter((course) => course.id === id)[0];
 	const { title, description, duration, creationDate, authors } = courseInfo;
 
 	function navigateBack() {
@@ -47,9 +51,8 @@ const CourseInfo = () => {
 							{authors
 								.map(
 									(authorId) =>
-										mockedAuthorsList.filter(
-											(author) => author.id === authorId
-										)[0].name
+										authorsAll.filter((author) => author.id === authorId)[0]
+											.name
 								)
 								.join(', ')}
 						</span>

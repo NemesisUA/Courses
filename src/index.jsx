@@ -6,13 +6,16 @@ import CoursesProvider from './hoc/CoursesProvider';
 import App from './App';
 
 import './index.css';
+import AuthorsAllProvider from './hoc/AuthorsAllProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<CoursesProvider>
-				<App />
+				<AuthorsAllProvider>
+					<App />
+				</AuthorsAllProvider>
 			</CoursesProvider>
 		</BrowserRouter>
 	</React.StrictMode>
