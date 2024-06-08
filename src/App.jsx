@@ -13,20 +13,31 @@ import HomePage from './pages/HomePage';
 import PageNotFound from './pages/PageNotFound';
 
 import './App.css';
+import RequireAuth from './hoc/RequireAuth';
+import { AuthProvider } from './hoc/AuthProvider';
 
 const App = () => {
 	return (
-		<Routes>
-			<Route path='/' element={<Layout />}>
-				<Route index element={<HomePage />} />
-				<Route path='/courses/:id' element={<CourseInfo />} />
-				<Route path='/no-courses' element={<EmptyCourseList />} />
-				<Route path='/create-course' element={<CreateCourse />} />
-				<Route path='login' element={<Login />} />
-				<Route path='registration' element={<Registration />} />
-				<Route path='*' element={<PageNotFound />} />
-			</Route>
-		</Routes>
+		<AuthProvider>
+			<Routes>
+				<Route path='/' element={<Layout />}>
+					<Route
+						index
+						element={
+							<RequireAuth>
+								<HomePage />
+							</RequireAuth>
+						}
+					/>
+					<Route path='/courses/:id' element={<CourseInfo />} />
+					<Route path='/no-courses' element={<EmptyCourseList />} />
+					<Route path='/create-course' element={<CreateCourse />} />
+					<Route path='login' element={<Login />} />
+					<Route path='registration' element={<Registration />} />
+					<Route path='*' element={<PageNotFound />} />
+				</Route>
+			</Routes>
+		</AuthProvider>
 	);
 };
 

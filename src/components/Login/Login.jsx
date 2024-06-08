@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '../../common';
 
 import styles from './login.module.css';
+import { useAuth } from '../../hooks/useAuth';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const Login = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const { setItem: setTokenLS } = useLocalStorage('token', null);
+	const { signIn } = useAuth();
 
 	const [form, setForm] = useState({
 		email: '',
@@ -21,7 +27,7 @@ const Login = () => {
 		});
 	};
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 
 		const newErrors = {};
@@ -36,7 +42,20 @@ const Login = () => {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0) {
-			navigate('/');
+			const newUser = { name: '', email: form.email, password: form.password };
+
+			const response = await fetch('http://localhost:4000/login', {
+				method: 'POST',
+				body: JSON.stringify(newUser),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			const result = await response.json();
+
+			setTokenLS(result.result);
+			signIn(result.user, () => navigate('/*', { replace: true }));
 		}
 	}
 
