@@ -35,7 +35,7 @@ const App = () => {
 				}
 			>
 				<Route index element={<Courses />} />
-				<Route path=':id' element={<CourseInfo />} />
+				<Route path=':courseId' element={<CourseInfo />} />
 				<Route path='empty' element={<EmptyCourseList />} />
 				<Route path='add' element={<CreateCourse />} />
 			</Route>

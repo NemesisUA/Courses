@@ -11,14 +11,14 @@ import { AuthorsAllContext } from '../../hoc/AuthorsAllProvider';
 const CourseInfo = () => {
 	const navigate = useNavigate();
 
-	const { id } = useParams();
+	const { courseId } = useParams();
 	const { courses } = useContext(CoursesContext);
 	const { authorsAll } = useContext(AuthorsAllContext);
-	const courseInfo = courses.filter((course) => course.id === id)[0];
+	const courseInfo = courses.filter((course) => course.id === courseId)[0];
 	const { title, description, duration, creationDate, authors } = courseInfo;
 
 	function navigateBack() {
-		navigate('/');
+		navigate('/courses');
 	}
 
 	return (
@@ -35,7 +35,7 @@ const CourseInfo = () => {
 				<div className={styles.rightBlock}>
 					<p className={styles.nowrap}>
 						<b>ID:</b>
-						<span className={styles.nowrap}>{id}</span>
+						<span className={styles.nowrap}>{courseId}</span>
 					</p>
 					<p>
 						<b>Duration:</b>
