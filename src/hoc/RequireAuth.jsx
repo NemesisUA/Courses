@@ -1,14 +1,14 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 const RequireAuth = ({ children }) => {
-	const location = useLocation();
 	const { token } = useAuth();
+	const isLoggedIn = token?.length || false;
 
-	if (!token) {
-		return <Navigate to='/login' />;
+	if (!isLoggedIn) {
+		return <Navigate to='/login' replace />;
 	}
+
 	return children;
 };
 

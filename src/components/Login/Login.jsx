@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '../../common';
 
@@ -12,7 +12,7 @@ const Login = () => {
 	const location = useLocation();
 
 	const { setItem: setTokenLS } = useLocalStorage('token', null);
-	const { signIn } = useAuth();
+	const { signIn, token } = useAuth();
 
 	const [form, setForm] = useState({
 		email: '',
@@ -54,8 +54,7 @@ const Login = () => {
 
 			const result = await response.json();
 
-			setTokenLS(result.result);
-			signIn(result.user, () => navigate('/*', { replace: true }));
+			signIn(result.user, result.result, () => navigate('/courses'));
 		}
 	}
 

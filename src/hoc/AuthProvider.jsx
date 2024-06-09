@@ -19,9 +19,12 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(getUserLS || null);
 	const [token, setToken] = useState(getTokenLS || null);
 
-	const signIn = (newUser, callbackFunc) => {
+	const signIn = (newUser, token, callbackFunc) => {
 		setUser(newUser);
 		setUserLS(newUser);
+
+		setToken(token);
+		setTokenLS(token);
 
 		callbackFunc();
 	};
@@ -36,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 		callbackFunc();
 	};
 
-	const value = { user, signIn, signOut };
+	const value = { user, signIn, signOut, token };
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
