@@ -7,16 +7,19 @@ import App from './App';
 
 import './index.css';
 import AuthorsAllProvider from './hoc/AuthorsAllProvider';
+import { AuthProvider } from './hoc/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<CoursesProvider>
-				<AuthorsAllProvider>
-					<App />
-				</AuthorsAllProvider>
-			</CoursesProvider>
+			<AuthProvider>
+				<CoursesProvider>
+					<AuthorsAllProvider>
+						<App />
+					</AuthorsAllProvider>
+				</CoursesProvider>
+			</AuthProvider>
 		</BrowserRouter>
 	</React.StrictMode>
 );

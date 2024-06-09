@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import {
 	CourseInfo,
+	Courses,
 	CreateCourse,
 	EmptyCourseList,
 	Layout,
@@ -14,30 +15,31 @@ import PageNotFound from './pages/PageNotFound';
 
 import './App.css';
 import RequireAuth from './hoc/RequireAuth';
-import { AuthProvider } from './hoc/AuthProvider';
 
 const App = () => {
 	return (
-		<AuthProvider>
-			<Routes>
-				<Route path='/' element={<Layout />}>
-					<Route
-						index
-						element={
-							<RequireAuth>
-								<HomePage />
-							</RequireAuth>
-						}
-					/>
-					<Route path='/courses/:id' element={<CourseInfo />} />
-					<Route path='/no-courses' element={<EmptyCourseList />} />
-					<Route path='/create-course' element={<CreateCourse />} />
-					<Route path='login' element={<Login />} />
-					<Route path='registration' element={<Registration />} />
-					<Route path='*' element={<PageNotFound />} />
-				</Route>
-			</Routes>
-		</AuthProvider>
+		<Routes>
+			<Route path='/' element={<Layout />}>
+				<Route index element={<HomePage />} />
+				<Route path='login' element={<Login />} />
+				<Route path='registration' element={<Registration />} />
+				<Route path='*' element={<PageNotFound />} />
+			</Route>
+
+			<Route
+				path='courses'
+				element={
+					<RequireAuth>
+						<Layout />
+					</RequireAuth>
+				}
+			>
+				<Route index element={<Courses />} />
+				<Route path=':id' element={<CourseInfo />} />
+				<Route path='empty' element={<EmptyCourseList />} />
+				<Route path='add' element={<CreateCourse />} />
+			</Route>
+		</Routes>
 	);
 };
 
