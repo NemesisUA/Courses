@@ -1,4 +1,6 @@
 import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const AuthContext = createContext(null);
@@ -42,4 +44,8 @@ export const AuthProvider = ({ children }) => {
 	const value = { user, signIn, signOut, token };
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+AuthProvider.propTypes = {
+	children: PropTypes.node,
 };

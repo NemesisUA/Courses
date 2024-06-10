@@ -1,4 +1,6 @@
 import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { mockedAuthorsList } from '../constants';
 
 export const AuthorsAllContext = createContext(null);
@@ -11,6 +13,10 @@ const AuthorsAllProvider = ({ children }) => {
 			{children}
 		</AuthorsAllContext.Provider>
 	);
+};
+
+AuthorsAllProvider.propTypes = {
+	children: PropTypes.node,
 };
 
 export default AuthorsAllProvider;

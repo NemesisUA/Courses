@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { AuthorsAllContext } from '../../../../hoc/AuthorsAllProvider';
 import { Button } from '../../../../common';
@@ -57,5 +58,14 @@ function CoursesCard({
 		</div>
 	);
 }
+
+CoursesCard.propTypes = {
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	authors: PropTypes.arrayOf(PropTypes.string),
+	duration: PropTypes.number.isRequired,
+	creationDate: PropTypes.instanceOf(Date).isRequired,
+};
 
 export default CoursesCard;

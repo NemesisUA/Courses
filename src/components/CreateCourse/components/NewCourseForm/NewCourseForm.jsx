@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Input, Textarea } from '../../../../common';
 import { getCourseDuration } from '../../../../helpers';
@@ -69,6 +70,19 @@ const NewCourseForm = ({
 			</div>
 		</form>
 	);
+};
+
+NewCourseForm.propTypes = {
+	handleChange: PropTypes.func.isRequired,
+	form: PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		description: PropTypes.string.isRequired,
+		duration: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+			.isRequired,
+	}).isRequired,
+	courseAuthors: PropTypes.array.isRequired,
+	setCourseAuthors: PropTypes.func.isRequired,
+	errors: PropTypes.object.isRequired,
 };
 
 export default NewCourseForm;

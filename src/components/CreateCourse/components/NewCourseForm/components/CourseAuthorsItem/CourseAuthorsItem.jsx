@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './courseAuthorsItem.module.css';
 
@@ -25,6 +26,13 @@ const CourseAuthorsItem = ({
 			</button>
 		</div>
 	);
+};
+
+CourseAuthorsItem.propTypes = {
+	id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	name: PropTypes.string.isRequired,
+	setCourseAuthors: PropTypes.func.isRequired,
+	setAuthorAccessible: PropTypes.func.isRequired,
 };
 
 export default CourseAuthorsItem;

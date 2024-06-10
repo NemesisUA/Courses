@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 import { AuthorsAllContext } from '../../../../../../hoc/AuthorsAllProvider';
 import { Button, Input } from '../../../../../../common';
@@ -8,7 +9,7 @@ import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
 
 import styles from './authorsBlock.module.css';
 
-const AuthorsBlock = ({ courseAuthors, setCourseAuthors, errors }) => {
+const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 	const { authorsAll, setAuthorsAll } = useContext(AuthorsAllContext);
 	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
 
@@ -82,6 +83,16 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors, errors }) => {
 			</div>
 		</div>
 	);
+};
+
+AuthorsBlock.propTypes = {
+	courseAuthors: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+			name: PropTypes.string.isRequired,
+		})
+	).isRequired,
+	setCourseAuthors: PropTypes.func.isRequired,
 };
 
 export default AuthorsBlock;

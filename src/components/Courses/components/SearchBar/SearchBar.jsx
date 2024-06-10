@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Button, Input } from '../../../../common';
 
@@ -24,6 +25,11 @@ const SearchBar = ({ courseQuery, setSearchParams }) => {
 			<Button buttonText='search' onClick={handleSearch} />
 		</div>
 	);
+};
+
+SearchBar.propTypes = {
+	courseQuery: PropTypes.string,
+	setSearchParams: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
