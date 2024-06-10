@@ -15,6 +15,7 @@ const Login = () => {
 		password: '',
 	});
 	const [errors, setErrors] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (event) => {
 		setForm({
@@ -40,17 +41,25 @@ const Login = () => {
 		if (Object.keys(newErrors).length === 0) {
 			const newUser = { name: '', email: form.email, password: form.password };
 
-			const response = await fetch('http://localhost:4000/login', {
-				method: 'POST',
-				body: JSON.stringify(newUser),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			try {
+				setIsLoading(true);
 
-			const result = await response.json();
+				const response = await fetch('http://localhost:4000/login', {
+					method: 'POST',
+					body: JSON.stringify(newUser),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
 
-			signIn(result.user, result.result, () => navigate('/courses'));
+				const result = await response.json();
+
+				signIn(result.user, result.result, () => navigate('/courses'));
+			} catch (error) {
+				alert('Login Failed', error.message);
+			} finally {
+				setIsLoading(false);
+			}
 		}
 	}
 
@@ -82,7 +91,7 @@ const Login = () => {
 					/>
 
 					<br />
-					<Button type='submit' buttonText='Login' />
+					<Button type='submit' buttonText='Login' disabled={isLoading} />
 					<p className={styles.redirectText}>
 						If you don't have an account you may
 					</p>

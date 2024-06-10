@@ -21,6 +21,13 @@
   color: var(--color-primary);
 }
 
+.btn:disabled {
+  color: grey;
+  background-color: transparent;
+  border-color: grey;
+  cursor: not-allowed;
+}
+
 @media screen and (max-width: 768px) {
   .btn {
     padding: 8px 24px;

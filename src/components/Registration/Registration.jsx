@@ -15,6 +15,7 @@ const Registration = () => {
 	});
 	const [errors, setErrors] = useState({});
 	const [backendErrors, setBackendErrors] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (event) => {
 		setForm({
@@ -44,21 +45,28 @@ const Registration = () => {
 				password: form.password,
 			};
 
-			const response = await fetch('http://localhost:4000/register', {
-				method: 'POST',
-				body: JSON.stringify(newUser),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			try {
+				setIsLoading(true);
 
-			const result = await response.json();
+				const response = await fetch('http://localhost:4000/register', {
+					method: 'POST',
+					body: JSON.stringify(newUser),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
 
-			if (result.successful) {
-				setBackendErrors(null);
+				const result = await response.json();
+
+				result.errors
+					? setBackendErrors(result.errors[0])
+					: setBackendErrors(null);
+
 				navigate('/login');
-			} else {
-				setBackendErrors(result.errors[0]);
+			} catch (error) {
+				alert('Registration Failed', error.message);
+			} finally {
+				setIsLoading(false);
 			}
 		}
 	}
@@ -105,7 +113,11 @@ const Registration = () => {
 						error={errors.password}
 					/>
 					<br />
-					<Button type='submit' buttonText='Registration' />
+					<Button
+						type='submit'
+						buttonText='Registration'
+						disabled={isLoading}
+					/>
 					<p className={styles.redirectText}>If you have an account you may</p>
 					<Link to='/login'>
 						<b>Login</b>
