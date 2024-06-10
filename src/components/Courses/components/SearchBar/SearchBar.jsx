@@ -10,6 +10,11 @@ const SearchBar = ({ courseQuery, setSearchParams }) => {
 
 	function handleSearch(e) {
 		e.preventDefault();
+
+		if (!search.trim()) {
+			setSearchParams({});
+			return;
+		}
 		setSearchParams({ course: search.trim().toLowerCase() });
 	}
 
