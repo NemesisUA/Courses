@@ -1,4 +1,4 @@
-# React Router
+# React State Management
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://autocode.git.epam.com/campus_javascript/react/react-router.git
+git remote add origin https://autocode.git.epam.com/campus_javascript/react/react-state-management.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://autocode.git.epam.com/campus_javascript/react/react-router/-/settings/integrations)
+- [ ] [Set up project integrations](https://autocode.git.epam.com/campus_javascript/react/react-state-management/-/settings/integrations)
 
 ## Collaborate with your team
 
