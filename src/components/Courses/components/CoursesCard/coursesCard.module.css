@@ -1,0 +1,51 @@
+.card {
+  background-color: #fff;
+  padding: 20px 31px 35px;
+  margin-bottom: 32px;
+  border-left: 7px solid var(--color-secondary);
+  border-radius: 4px;  
+  box-shadow: var(--box-shadow);
+}
+
+.cardContainer {
+  display: flex;
+  gap: 47px;
+}
+
+.cardTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 3.2rem;
+  color: var(--text-dark);
+}
+
+.cardDescription {
+  flex-grow: 1;
+}
+
+.cardAutorsBlock {
+  min-width: 310px;
+}
+
+.nowrap {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+  }
+
+  .cardAutorsBlock {
+    min-width: 100%;
+  }
+
+  .nowrap {
+    width:200px;    
+  }
+}
