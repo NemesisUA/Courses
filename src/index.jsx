@@ -7,7 +7,6 @@ import App from './App';
 
 import './index.css';
 import AuthorsAllProvider from './hoc/AuthorsAllProvider';
-import { AuthProvider } from './hoc/AuthProvider';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -17,13 +16,11 @@ root.render(
 	<Provider store={store}>
 		<React.StrictMode>
 			<BrowserRouter>
-				<AuthProvider>
-					<CoursesProvider>
-						<AuthorsAllProvider>
-							<App />
-						</AuthorsAllProvider>
-					</CoursesProvider>
-				</AuthProvider>
+				<CoursesProvider>
+					<AuthorsAllProvider>
+						<App />
+					</AuthorsAllProvider>
+				</CoursesProvider>
 			</BrowserRouter>
 		</React.StrictMode>
 	</Provider>
