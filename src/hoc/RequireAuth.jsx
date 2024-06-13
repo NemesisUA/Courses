@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useSelector } from 'react-redux';
 
 const RequireAuth = ({ children }) => {
-	const { token } = useAuth();
-	const isLoggedIn = token?.length || false;
+	const isLoggedIn = useSelector((state) => state.user.isAuth) || false;
 
 	if (!isLoggedIn) {
 		return <Navigate to='/login' replace />;
