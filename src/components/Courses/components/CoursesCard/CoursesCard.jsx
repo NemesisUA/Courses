@@ -65,7 +65,10 @@ CoursesCard.propTypes = {
 	description: PropTypes.string.isRequired,
 	authors: PropTypes.arrayOf(PropTypes.string),
 	duration: PropTypes.number.isRequired,
-	creationDate: PropTypes.instanceOf(Date).isRequired,
+	creationDate: PropTypes.oneOfType([
+		PropTypes.instanceOf(Date),
+		PropTypes.string,
+	]).isRequired,
 };
 
 export default CoursesCard;
