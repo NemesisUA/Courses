@@ -16,6 +16,7 @@ const Courses = () => {
 
 	const dispatch = useDispatch();
 	const courses = useSelector((state) => state.courses.courses);
+	const authors = useSelector((state) => state.authors.authors);
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const courseQuery = searchParams.get('course') || '';
@@ -40,8 +41,8 @@ const Courses = () => {
 			}
 		};
 
-		fetchData();
-	}, [dispatch]);
+		if (courses.length < 1) fetchData();
+	}, [courses, dispatch]);
 
 	useEffect(() => {
 		const url = 'http://localhost:4000/courses/all';
@@ -65,9 +66,8 @@ const Courses = () => {
 				setIsLoading(false);
 			}
 		};
-
-		fetchData();
-	}, [dispatch, navigate]);
+		if (authors.length < 1) fetchData();
+	}, [authors, dispatch, navigate]);
 
 	return (
 		<>

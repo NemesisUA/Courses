@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { AuthorsAllContext } from '../../../../../../hoc/AuthorsAllProvider';
+import { addAuthor } from '../../../../../../store/authors/authorsSlice';
 import { Button, Input } from '../../../../../../common';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
@@ -10,7 +11,9 @@ import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
 import styles from './authorsBlock.module.css';
 
 const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
-	const { authorsAll, setAuthorsAll } = useContext(AuthorsAllContext);
+	const dispatch = useDispatch();
+	const authorsAll = useSelector((state) => state.authors.authors);
+
 	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
 
 	const [newAuthorName, setNewAuthorName] = useState('');
@@ -26,7 +29,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 		setNewAuthorError('');
 		const newAuthor = { id: uuidv4(), name: newAuthorName };
 
-		setAuthorsAll([...authorsAll, newAuthor]);
+		dispatch(addAuthor(newAuthor));
 		setAuthorAccessible([...authorAccessible, newAuthor]);
 		setNewAuthorName('');
 	}

@@ -1,16 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
 
-import { CoursesContext } from '../../hoc/CoursesProvider';
 import { Button } from '../../common';
 import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
+import { addCourse } from '../../store/courses/coursesSlice';
 
 import styles from './createCourse.module.css';
 
 const CreateCourse = () => {
-	const { setCourses } = useContext(CoursesContext);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
@@ -49,12 +50,12 @@ const CreateCourse = () => {
 				id: id,
 				title: form.title,
 				description: form.description,
-				duration: form.duration,
+				duration: +form.duration,
 				creationDate: new Date().toDateString(),
 				authors: courseAuthorsIds,
 			};
 
-			setCourses((courses) => [...courses, newCourse]);
+			dispatch(addCourse(newCourse));
 			alert('New corse was created!');
 			navigate('/');
 		}

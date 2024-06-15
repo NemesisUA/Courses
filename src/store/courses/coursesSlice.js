@@ -11,9 +11,12 @@ const coursesSlice = createSlice({
 		setCourses: (state, action) => {
 			state.courses = action.payload;
 		},
+		addCourse: (state, action) => {
+			state.courses = [...state.courses, action.payload];
+		},
 	},
 });
 
-export const { setCourses } = coursesSlice.actions;
+export const { setCourses, addCourse } = coursesSlice.actions;
 
 export default coursesSlice.reducer;
