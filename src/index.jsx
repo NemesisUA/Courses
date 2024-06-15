@@ -16,11 +16,7 @@ root.render(
 	<Provider store={store}>
 		<React.StrictMode>
 			<BrowserRouter>
-				<CoursesProvider>
-					<AuthorsAllProvider>
-						<App />
-					</AuthorsAllProvider>
-				</CoursesProvider>
+				<App />
 			</BrowserRouter>
 		</React.StrictMode>
 	</Provider>

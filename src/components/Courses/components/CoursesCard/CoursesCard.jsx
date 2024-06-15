@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { AuthorsAllContext } from '../../../../hoc/AuthorsAllProvider';
 import { Button } from '../../../../common';
 import { getCourseDuration, formatCreationDate } from '../../../../helpers';
 
 import styles from './coursesCard.module.css';
+import { useSelector } from 'react-redux';
 
 function CoursesCard({
 	id,
@@ -16,7 +16,7 @@ function CoursesCard({
 	duration,
 	creationDate,
 }) {
-	const { authorsAll } = useContext(AuthorsAllContext || []);
+	const authorsAll = useSelector((state) => state.authors.authors);
 	const navigate = useNavigate();
 
 	function navigateCourse() {
