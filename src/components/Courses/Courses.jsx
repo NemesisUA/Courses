@@ -41,8 +41,8 @@ const Courses = () => {
 			}
 		};
 
-		if (courses.length < 1) fetchData();
-	}, [courses, dispatch]);
+		if (authors.length < 1) fetchData();
+	}, [authors, dispatch]);
 
 	useEffect(() => {
 		const url = 'http://localhost:4000/courses/all';
@@ -66,8 +66,9 @@ const Courses = () => {
 				setIsLoading(false);
 			}
 		};
-		if (authors.length < 1) fetchData();
-	}, [authors, dispatch, navigate]);
+
+		if (courses.length < 1) fetchData();
+	}, [courses, dispatch, navigate]);
 
 	return (
 		<>
