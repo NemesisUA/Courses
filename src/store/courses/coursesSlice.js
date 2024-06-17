@@ -20,6 +20,7 @@ const coursesSlice = createSlice({
 				(course) => course.id !== action.payload.id
 			);
 		},
+		updateCourse: () => {},
 	},
 	extraReducers: (builder) => {
 		builder.addMatcher(
