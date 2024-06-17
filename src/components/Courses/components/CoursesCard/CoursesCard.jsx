@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../../../../common';
 import { getCourseDuration, formatCreationDate } from '../../../../helpers';
 
 import styles from './coursesCard.module.css';
-import { useSelector } from 'react-redux';
+import { deleteCourse } from '../../../../store/courses/coursesSlice';
 
 function CoursesCard({
 	id,
@@ -16,12 +17,19 @@ function CoursesCard({
 	duration,
 	creationDate,
 }) {
-	const authorsAll = useSelector((state) => state.authors.authors);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const authorsAll = useSelector((state) => state.authors.authors);
 
 	function navigateCourse() {
 		navigate(`/courses/${id}`);
 	}
+
+	function handleDelete() {
+		dispatch(deleteCourse({ id }));
+	}
+
+	function handleEdit() {}
 
 	return (
 		<div className={styles.card}>
@@ -52,7 +60,19 @@ function CoursesCard({
 						<b>Created: </b>
 						{formatCreationDate(creationDate)}
 					</p>
-					<Button buttonText='show course' onClick={navigateCourse} />
+					<div className={styles.buttonsBlock}>
+						<Button buttonText='show course' onClick={navigateCourse} />
+						<Button
+							buttonText=''
+							styleAdditional='deleteIco'
+							onClick={handleDelete}
+						/>
+						<Button
+							buttonText=''
+							styleAdditional='editIco'
+							onClick={handleEdit}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
