@@ -1,0 +1,13 @@
+.container {
+  display: flex; 
+  width: 100%;
+  max-width: 564px;
+  gap: 16px;  
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+}

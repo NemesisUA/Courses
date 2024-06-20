@@ -1,0 +1,49 @@
+.label {  
+  display: flex;
+  flex-direction: column;
+  width: 100%;  
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.align {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.input {
+  height: 50px;
+  flex-grow: 1;
+  padding: 0 8px 0 16px;
+  outline: none;
+  border: 2px solid var(--color-secondary);
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.input:focus {
+  border: 2px solid var(--color-primary);
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+.maxWidth400 {
+  max-width: 360px;
+}
+
+.errorText {
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+    width: 100%;
+  }
+
+  .label input {
+    flex-grow: 1;
+  }
+}

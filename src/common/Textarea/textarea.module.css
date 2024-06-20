@@ -1,0 +1,38 @@
+.label {  
+  display: flex;
+  flex-direction: column;
+  width: 100%;  
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.textarea {  
+  max-width: 100%;
+  padding: 8px 16px;
+  outline: none;
+  border: 2px solid var(--color-secondary);
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.textarea:focus {
+  border: 2px solid var(--color-primary);
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+.errorText {
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+    width: 100%;
+  }
+
+  .label input {
+    flex-grow: 1;
+  }
+}

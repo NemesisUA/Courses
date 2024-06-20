@@ -1,0 +1,64 @@
+.btn {
+  font-family: var(--font-primary);
+  font-weight: bold;
+  font-size: 1.6rem;
+  max-height: 50px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--color-primary);
+  padding: 12px 36px;
+  border: 2px solid var(--color-primary);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s;
+  text-wrap: nowrap;
+}
+
+.btn:hover {
+  box-shadow: inset 0 0 0 2em #fff;
+  color: var(--color-primary);
+}
+
+.btn:disabled {
+  color: grey;
+  background-color: transparent;
+  border-color: grey;
+  cursor: not-allowed;
+}
+
+.deleteIco {  
+  background-image: url('../../assets/images/Delete.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.editIco {
+  background-image: url('../../assets/images/Edit.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.deleteIco:hover {  
+  box-shadow: none;
+  background-color: #fff;
+  background-image: url('../../assets/images/DeleteHover.svg');  
+}
+
+.editIco:hover {  
+  box-shadow: none;
+  background-color: #fff;
+  background-image: url('../../assets/images/EditHover.svg');  
+}
+
+.deleteIco:active,
+.editIco:active {
+  transform: scale(0.96);
+}
+
+@media screen and (max-width: 768px) {
+  .btn {
+    padding: 8px 24px;
+  }
+}
+
