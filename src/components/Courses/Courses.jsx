@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { CoursesCard, SearchBar } from './components';
-import { CoursesContext } from '../../hoc/CoursesProvider';
 import { Button } from '../../common';
+import { useEffect } from 'react';
 
 const Courses = () => {
 	const navigate = useNavigate();
-	const [searchParams, setSearchParams] = useSearchParams();
 
+	const courses = useSelector((state) => state.courses.courses);
+
+	const [searchParams, setSearchParams] = useSearchParams();
 	const courseQuery = searchParams.get('course') || '';
 
-	const { courses } = useContext(CoursesContext);
-
 	useEffect(() => {
-		if (courses.length === 0) {
+		if (courses?.length === 0) {
 			navigate('/courses/empty');
 		}
 	}, [courses, navigate]);

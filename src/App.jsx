@@ -13,10 +13,16 @@ import {
 import HomePage from './pages/HomePage';
 import PageNotFound from './pages/PageNotFound';
 
-import './App.css';
 import RequireAuth from './hoc/RequireAuth';
+import { useGetCoursesQuery } from './store/services/coursesAPI';
+import { useGetAuthorsQuery } from './store/services/authorsAPI';
+
+import './App.css';
 
 const App = () => {
+	useGetCoursesQuery();
+	useGetAuthorsQuery();
+
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/user/userSlice';
 
 import { Button, Input } from '../../common';
 
 import styles from './login.module.css';
-import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { signIn } = useAuth();
+	const dispatch = useDispatch();
 
 	const [form, setForm] = useState({
 		email: '',
@@ -53,8 +54,9 @@ const Login = () => {
 				});
 
 				const result = await response.json();
-
-				signIn(result.user, result.result, () => navigate('/courses'));
+				//signIn(result.user, result.result, () => navigate('/courses'));
+				dispatch(loginUser(result));
+				navigate('/courses');
 			} catch (error) {
 				alert('Login Failed', error.message);
 			} finally {
@@ -91,7 +93,12 @@ const Login = () => {
 					/>
 
 					<br />
-					<Button type='submit' buttonText='Login' disabled={isLoading} />
+					<Button
+						type='submit'
+						buttonText='Login'
+						onClick={handleSubmit}
+						disabled={isLoading}
+					/>
 					<p className={styles.redirectText}>
 						If you don't have an account you may
 					</p>
