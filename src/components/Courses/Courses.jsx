@@ -1,9 +1,10 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CoursesCard, SearchBar } from './components';
 import { Button } from '../../common';
 import { useEffect } from 'react';
+import { fetchUserRole } from '../../store/user/thunk';
 
 const Courses = () => {
 	const navigate = useNavigate();
@@ -12,6 +13,13 @@ const Courses = () => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const courseQuery = searchParams.get('course') || '';
+
+	const token = useSelector((state) => state.user.token);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchUserRole(token));
+	}, [token, dispatch]);
 
 	useEffect(() => {
 		if (courses?.length === 0) {

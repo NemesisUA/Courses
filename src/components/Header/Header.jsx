@@ -8,6 +8,10 @@ import { formatUserName } from '../../helpers';
 import { logoutUser } from '../../store/user/userSlice';
 
 import styles from './header.module.css';
+import {
+	LocalStorageService,
+	LS_KEYS,
+} from '../../store/services/LocalStorageService';
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -21,6 +25,10 @@ const Header = () => {
 
 	function handleLogout() {
 		dispatch(logoutUser());
+
+		LocalStorageService.remove(LS_KEYS.TOKEN);
+		LocalStorageService.remove(LS_KEYS.USER);
+
 		navigate('/login');
 	}
 

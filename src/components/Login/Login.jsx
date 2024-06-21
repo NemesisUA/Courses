@@ -6,6 +6,10 @@ import { loginUser } from '../../store/user/userSlice';
 import { Button, Input } from '../../common';
 
 import styles from './login.module.css';
+import {
+	LocalStorageService,
+	LS_KEYS,
+} from '../../store/services/LocalStorageService';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -54,8 +58,12 @@ const Login = () => {
 				});
 
 				const result = await response.json();
-				//signIn(result.user, result.result, () => navigate('/courses'));
+
 				dispatch(loginUser(result));
+
+				LocalStorageService.set(LS_KEYS.TOKEN, result.result);
+				LocalStorageService.set(LS_KEYS.USER, result.user);
+
 				navigate('/courses');
 			} catch (error) {
 				alert('Login Failed', error.message);
