@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './user/userSlice';
 import coursesReducer from './courses/coursesSlice';
 import authorsReducer from './authors/authorsSlice';
-import { coursesAPI } from './services/coursesAPI';
+
 import { authorsAPI } from './services/authorsAPI';
 
 export default configureStore({
@@ -10,11 +10,10 @@ export default configureStore({
 		user: userReducer,
 		courses: coursesReducer,
 		authors: authorsReducer,
-		[coursesAPI.reducerPath]: coursesAPI.reducer,
+		//[coursesAPI.reducerPath]: coursesAPI.reducer,
 		[authorsAPI.reducerPath]: authorsAPI.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware()
-			.concat(authorsAPI.middleware)
-			.concat(coursesAPI.middleware),
+		getDefaultMiddleware().concat(authorsAPI.middleware),
+	//.concat(coursesAPI.middleware),
 });

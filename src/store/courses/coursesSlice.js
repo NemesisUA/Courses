@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { coursesAPI } from '../services/coursesAPI';
+import { fetchCourses } from './thunk';
 
 const initialState = {
 	courses: [],
+	loading: false,
+	error: null,
 };
 
 const coursesSlice = createSlice({
 	name: 'courses',
 	initialState,
 	reducers: {
-		setCourses: (state, action) => {
-			state.courses = action.payload;
-		},
 		addCourse: (state, action) => {
 			state.courses = [...state.courses, action.payload];
 		},
@@ -22,13 +21,21 @@ const coursesSlice = createSlice({
 		},
 		updateCourse: () => {},
 	},
+
 	extraReducers: (builder) => {
-		builder.addMatcher(
-			coursesAPI.endpoints.getCourses.matchFulfilled,
-			(state, action) => {
-				state.courses = action.payload.result;
-			}
-		);
+		builder
+			.addCase(fetchCourses.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(fetchCourses.fulfilled, (state, action) => {
+				state.loading = false;
+				state.courses = action.payload;
+			})
+			.addCase(fetchCourses.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload;
+				state.courses = [];
+			});
 	},
 });
 

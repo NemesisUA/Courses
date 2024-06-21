@@ -10,7 +10,7 @@ const EmptyCourseList = () => {
 	const courses = useSelector((state) => state.courses.courses);
 
 	useEffect(() => {
-		if (courses.length > 0) {
+		if (courses?.length > 0) {
 			navigate('/courses');
 		}
 	}, [courses, navigate]);
