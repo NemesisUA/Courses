@@ -47,7 +47,7 @@ function CoursesCard({
 							authors
 								.map(
 									(authorId) =>
-										authorsAll.filter((author) => author.id === authorId)[0]
+										authorsAll?.filter((author) => author.id === authorId)[0]
 											?.name
 								)
 								.join(', ')}

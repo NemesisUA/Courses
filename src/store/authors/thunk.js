@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchCourses = createAsyncThunk(
-	'courses/fetchCourses',
+export const fetchAuthors = createAsyncThunk(
+	'authors/fetchAuthors',
 	async function (token, { rejectWithValue }) {
 		try {
-			const response = await fetch('http://localhost:4000/courses/all', {
+			const response = await fetch('http://localhost:4000/authors/all', {
 				headers: {
 					Authorization: token,
 				},

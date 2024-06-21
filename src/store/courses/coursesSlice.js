@@ -26,9 +26,11 @@ const coursesSlice = createSlice({
 		builder
 			.addCase(fetchCourses.pending, (state) => {
 				state.loading = true;
+				state.error = null;
 			})
 			.addCase(fetchCourses.fulfilled, (state, action) => {
 				state.loading = false;
+				state.error = null;
 				state.courses = action.payload;
 			})
 			.addCase(fetchCourses.rejected, (state, action) => {
