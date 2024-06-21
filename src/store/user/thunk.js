@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LocalStorageService, LS_KEYS } from '../services/LocalStorageService';
+import { logoutUser } from './userSlice';
 
 export const fetchUserRole = createAsyncThunk(
 	'user/fetchUserRole',
@@ -25,6 +26,32 @@ export const fetchUserRole = createAsyncThunk(
 			});
 
 			return role;
+		} catch (error) {
+			rejectWithValue(error.message);
+		}
+	}
+);
+
+export const requestLogout = createAsyncThunk(
+	'user/requestLogout',
+	async function (_, { rejectWithValue, dispatch, getState }) {
+		const token = getState().user.token;
+		try {
+			const response = await fetch('http://localhost:4000/logout', {
+				headers: {
+					Authorization: token,
+				},
+				method: 'DELETE',
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to logout');
+			}
+
+			dispatch(logoutUser());
+
+			LocalStorageService.remove(LS_KEYS.TOKEN);
+			LocalStorageService.remove(LS_KEYS.USER);
 		} catch (error) {
 			rejectWithValue(error.message);
 		}

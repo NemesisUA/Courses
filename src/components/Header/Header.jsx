@@ -5,13 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from './components/Logo/Logo';
 import { Button } from '../../common';
 import { formatUserName } from '../../helpers';
-import { logoutUser } from '../../store/user/userSlice';
+import { requestLogout } from '../../store/user/thunk';
 
 import styles from './header.module.css';
-import {
-	LocalStorageService,
-	LS_KEYS,
-} from '../../store/services/LocalStorageService';
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -24,10 +20,7 @@ const Header = () => {
 	let hideUserAndLogout = pathname === '/login' || pathname === '/registration';
 
 	function handleLogout() {
-		dispatch(logoutUser());
-
-		LocalStorageService.remove(LS_KEYS.TOKEN);
-		LocalStorageService.remove(LS_KEYS.USER);
+		dispatch(requestLogout());
 
 		navigate('/login');
 	}
