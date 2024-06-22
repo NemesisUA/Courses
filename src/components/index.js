@@ -6,3 +6,4 @@ export { default as Login } from './Login/Login';
 export { default as Registration } from './Registration/Registration';
 export { default as Layout } from './Layout';
 export { default as CreateCourse } from './CreateCourse/CreateCourse';
+export { default as PrivateRoute } from './PrivateRoute';

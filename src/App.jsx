@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
 	CourseInfo,
@@ -8,9 +8,9 @@ import {
 	EmptyCourseList,
 	Layout,
 	Login,
+	PrivateRoute,
 	Registration,
 } from './components';
-import HomePage from './pages/HomePage';
 import PageNotFound from './pages/PageNotFound';
 
 import RequireAuth from './hoc/RequireAuth';
@@ -21,7 +21,7 @@ const App = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
-				<Route index element={<HomePage />} />
+				<Route index element={<Navigate to='/courses' />} />
 				<Route path='login' element={<Login />} />
 				<Route path='registration' element={<Registration />} />
 				<Route path='*' element={<PageNotFound />} />
@@ -38,7 +38,15 @@ const App = () => {
 				<Route index element={<Courses />} />
 				<Route path=':courseId' element={<CourseInfo />} />
 				<Route path='empty' element={<EmptyCourseList />} />
-				<Route path='add' element={<CreateCourse />} />
+
+				<Route
+					path='add'
+					element={
+						<PrivateRoute>
+							<CreateCourse />
+						</PrivateRoute>
+					}
+				/>
 			</Route>
 		</Routes>
 	);
