@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addAuthor } from '../../../../../../store/authors/authorsSlice';
 import { Button, Input } from '../../../../../../common';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
+import { addAuthor } from '../../../../../../store/authors/thunk';
 
 import styles from './authorsBlock.module.css';
 
 const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 	const dispatch = useDispatch();
+	const token = useSelector((state) => state.user.token);
 	const authorsAll = useSelector((state) => state.authors.authors);
 
 	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
@@ -27,9 +28,10 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 			return;
 		}
 		setNewAuthorError('');
-		const newAuthor = { id: uuidv4(), name: newAuthorName };
+		const newAuthor = { name: newAuthorName };
 
-		dispatch(addAuthor(newAuthor));
+		dispatch(addAuthor({ newAuthor, token }));
+
 		setAuthorAccessible([...authorAccessible, newAuthor]);
 		setNewAuthorName('');
 	}
