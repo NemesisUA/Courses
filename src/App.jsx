@@ -47,6 +47,15 @@ const App = () => {
 						</PrivateRoute>
 					}
 				/>
+
+				<Route
+					path='update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 			</Route>
 		</Routes>
 	);

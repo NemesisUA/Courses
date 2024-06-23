@@ -32,7 +32,9 @@ function CoursesCard({
 		dispatch(deleteCourse({ id, token }));
 	}
 
-	function handleEdit() {}
+	function handleEdit() {
+		navigate(`/courses/update/${id}`);
+	}
 
 	return (
 		<div className={styles.card}>
