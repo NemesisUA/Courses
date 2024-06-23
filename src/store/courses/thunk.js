@@ -42,6 +42,7 @@ export const deleteCourse = createAsyncThunk(
 			}
 
 			dispatch(courseDeleted({ id }));
+			return result.result;
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
