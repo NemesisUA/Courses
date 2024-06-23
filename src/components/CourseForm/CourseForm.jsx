@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../../common';
 import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
-import { addCourse } from '../../store/courses/coursesSlice';
 
 import styles from './CourseForm.module.css';
+import { addCourse } from '../../store/courses/thunk';
 
 const CourseForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const token = useSelector((state) => state.user.token);
 
 	const [form, setForm] = useState({
 		title: '',
@@ -44,19 +45,16 @@ const CourseForm = () => {
 
 		if (Object.keys(newErrors).length === 0) {
 			const courseAuthorsIds = courseAuthors.map((author) => author.id);
-			const id = uuidv4();
 
 			const newCourse = {
-				id: id,
 				title: form.title,
 				description: form.description,
 				duration: +form.duration,
-				creationDate: new Date().toDateString(),
 				authors: courseAuthorsIds,
 			};
 
-			dispatch(addCourse(newCourse));
-			alert('New corse was created!');
+			dispatch(addCourse({ newCourse, token }));
+
 			navigate('/');
 		}
 	}

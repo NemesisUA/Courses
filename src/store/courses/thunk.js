@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { courseDeleted } from './coursesSlice';
+import { courseAdded, courseDeleted } from './coursesSlice';
 
 export const fetchCourses = createAsyncThunk(
 	'courses/fetchCourses',
@@ -42,6 +42,34 @@ export const deleteCourse = createAsyncThunk(
 			}
 
 			dispatch(courseDeleted({ id }));
+		} catch (error) {
+			return rejectWithValue(error.message);
+		}
+	}
+);
+
+export const addCourse = createAsyncThunk(
+	'courses/addCourse',
+	async function ({ newCourse, token }, { dispatch, rejectWithValue }) {
+		try {
+			const response = await fetch(`http://localhost:4000/courses/add`, {
+				headers: {
+					Authorization: token,
+					'Content-Type': 'application/json',
+				},
+				method: 'POST',
+
+				body: JSON.stringify(newCourse),
+			});
+
+			const result = await response.json();
+
+			if (!result.successful) {
+				throw new Error('Failed to add new course!');
+			}
+
+			const addedCourse = result.result;
+			dispatch(courseAdded({ addedCourse }));
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}
