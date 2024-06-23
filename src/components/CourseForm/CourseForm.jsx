@@ -8,9 +8,9 @@ import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
 import { addCourse } from '../../store/courses/coursesSlice';
 
-import styles from './createCourse.module.css';
+import styles from './CourseForm.module.css';
 
-const CreateCourse = () => {
+const CourseForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -94,4 +94,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default CourseForm;

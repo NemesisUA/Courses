@@ -2,9 +2,9 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
+	CourseForm,
 	CourseInfo,
 	Courses,
-	CreateCourse,
 	EmptyCourseList,
 	Layout,
 	Login,
@@ -43,7 +43,7 @@ const App = () => {
 					path='add'
 					element={
 						<PrivateRoute>
-							<CreateCourse />
+							<CourseForm />
 						</PrivateRoute>
 					}
 				/>
