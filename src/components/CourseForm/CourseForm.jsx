@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../../common';
@@ -14,6 +14,15 @@ const CourseForm = () => {
 	const navigate = useNavigate();
 
 	const token = useSelector((state) => state.user.token);
+	const courses = useSelector((state) => state.courses.courses);
+	const authors = useSelector((state) => state.authors.authors);
+
+	const location = useLocation();
+	const currentPath = location.pathname;
+
+	//console.log('Current Path:', currentPath);
+	// '/courses/add'
+	// '/courses/update/66cc289e-6de9-49b2-9ca7-8b4f409d6467'
 
 	const [form, setForm] = useState({
 		title: '',
@@ -24,6 +33,33 @@ const CourseForm = () => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
 
 	const [errors, setErrors] = useState({});
+
+	const { courseId } = useParams();
+	let courseInfo = courses.find((course) => course.id === courseId);
+
+	if (currentPath !== '/courses/add') {
+		if (!courseInfo) navigate('/404');
+	} else courseInfo = {};
+
+	const {
+		title = '',
+		description = '',
+		duration = '',
+		authors: authorsIDs = [],
+	} = courseInfo;
+
+	useLayoutEffect(() => {
+		setForm({
+			title,
+			description,
+			duration,
+		});
+		setCourseAuthors(
+			authorsIDs.map((authorID) =>
+				authors.find((author) => author.id === authorID)
+			)
+		);
+	}, []);
 
 	const handleChange = (e) => {
 		// numbers only
@@ -78,6 +114,7 @@ const CourseForm = () => {
 				courseAuthors={courseAuthors}
 				setCourseAuthors={setCourseAuthors}
 				errors={errors}
+				authors={authors}
 			/>
 
 			<div className={styles.buttonsContainer}>

@@ -75,7 +75,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 					<ul>
 						{courseAuthors.map((author) => (
 							<CourseAuthorsItem
-								key={author.id}
+								key={author.name}
 								{...author}
 								setCourseAuthors={setCourseAuthors}
 								setAuthorAccessible={setAuthorAccessible}
