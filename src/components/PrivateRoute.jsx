@@ -11,9 +11,9 @@ const PrivateRoute = ({ children }) => {
 	return userRole === 'admin' ? (
 		children
 	) : token ? (
-		// <Navigate to='/courses' />
-		<Unauthorised state={{ from: location }} replace />
+		<Navigate to='/courses' />
 	) : (
+		//<Unauthorised state={{ from: location }} replace />
 		<Navigate to='/login' />
 	);
 };

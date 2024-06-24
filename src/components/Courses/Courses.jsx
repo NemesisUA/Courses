@@ -21,6 +21,8 @@ const Courses = () => {
 	const token = useSelector((state) => state.user.token);
 	const dispatch = useDispatch();
 
+	const userRole = useSelector((state) => state.user.role);
+
 	useEffect(() => {
 		dispatch(fetchUserRole(token));
 	}, [token, dispatch]);
@@ -51,10 +53,12 @@ const Courses = () => {
 						courseQuery={courseQuery}
 						setSearchParams={setSearchParams}
 					/>
-					<Button
-						buttonText='Add new course'
-						onClick={() => navigate('/courses/add')}
-					/>
+					{userRole === 'admin' && (
+						<Button
+							buttonText='Add new course'
+							onClick={() => navigate('/courses/add')}
+						/>
+					)}
 				</div>
 			)}
 
