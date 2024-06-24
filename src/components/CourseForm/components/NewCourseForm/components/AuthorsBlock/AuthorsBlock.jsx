@@ -56,14 +56,20 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 				<h3>Authors List</h3>
 				<ul>
 					{authorAccessible.length > 0 &&
-						authorAccessible.map((author) => (
-							<AuthorItem
-								key={author.id}
-								{...author}
-								setCourseAuthors={setCourseAuthors}
-								setAuthorAccessible={setAuthorAccessible}
-							/>
-						))}
+						authorAccessible
+							.filter(
+								(author) =>
+									courseAuthors.map((item) => item.id).includes(author.id) ===
+									false
+							)
+							.map((author) => (
+								<AuthorItem
+									key={author.id}
+									{...author}
+									setCourseAuthors={setCourseAuthors}
+									setAuthorAccessible={setAuthorAccessible}
+								/>
+							))}
 				</ul>
 			</div>
 

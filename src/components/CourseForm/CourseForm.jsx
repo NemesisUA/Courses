@@ -95,8 +95,7 @@ const CourseForm = () => {
 				// update
 				newCourse.id = courseId;
 				dispatch(editCourse({ courseId, newCourse, token }));
-				alert('Course has been edited!');
-				setTimeout(() => navigate('/'), 1000);
+				setTimeout(() => navigate('/'), 300);
 			}
 		}
 	}
