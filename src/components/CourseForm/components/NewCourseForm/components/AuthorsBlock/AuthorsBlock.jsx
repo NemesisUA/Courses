@@ -20,7 +20,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 	const [newAuthorName, setNewAuthorName] = useState('');
 	const [newAuthorError, setNewAuthorError] = useState('');
 
-	function handleCreateAuthor(e) {
+	async function handleCreateAuthor(e) {
 		e.preventDefault();
 
 		if (newAuthorName.length < 2) {
@@ -30,9 +30,9 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 		setNewAuthorError('');
 		const newAuthor = { name: newAuthorName };
 
-		dispatch(addAuthor({ newAuthor, token }));
+		const result = await dispatch(addAuthor({ newAuthor, token }));
 
-		setAuthorAccessible([...authorAccessible, newAuthor]);
+		setAuthorAccessible([...authorAccessible, result.payload]);
 		setNewAuthorName('');
 	}
 
@@ -75,7 +75,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 					<ul>
 						{courseAuthors.map((author) => (
 							<CourseAuthorsItem
-								key={author.name}
+								key={author.id}
 								{...author}
 								setCourseAuthors={setCourseAuthors}
 								setAuthorAccessible={setAuthorAccessible}

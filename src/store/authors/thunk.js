@@ -45,6 +45,8 @@ export const addAuthor = createAsyncThunk(
 			}
 
 			dispatch(authorAdded({ result }));
+
+			return result.result;
 		} catch (error) {
 			return rejectWithValue(error.message);
 		}

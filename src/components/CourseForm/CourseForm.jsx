@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,7 +7,7 @@ import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
 
 import styles from './CourseForm.module.css';
-import { addCourse } from '../../store/courses/thunk';
+import { addCourse, editCourse } from '../../store/courses/thunk';
 
 const CourseForm = () => {
 	const dispatch = useDispatch();
@@ -20,10 +20,6 @@ const CourseForm = () => {
 	const location = useLocation();
 	const currentPath = location.pathname;
 
-	//console.log('Current Path:', currentPath);
-	// '/courses/add'
-	// '/courses/update/66cc289e-6de9-49b2-9ca7-8b4f409d6467'
-
 	const [form, setForm] = useState({
 		title: '',
 		description: '',
@@ -35,7 +31,7 @@ const CourseForm = () => {
 	const [errors, setErrors] = useState({});
 
 	const { courseId } = useParams();
-	let courseInfo = courses.find((course) => course.id === courseId);
+	let courseInfo = courses?.find((course) => course.id === courseId);
 
 	if (currentPath !== '/courses/add') {
 		if (!courseInfo) navigate('/404');
@@ -59,6 +55,7 @@ const CourseForm = () => {
 				authors.find((author) => author.id === authorID)
 			)
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleChange = (e) => {
@@ -89,9 +86,18 @@ const CourseForm = () => {
 				authors: courseAuthorsIds,
 			};
 
-			dispatch(addCourse({ newCourse, token }));
-
-			navigate('/');
+			if (currentPath === '/courses/add') {
+				// create new
+				dispatch(addCourse({ newCourse, token }));
+				alert('Course has been created!');
+				navigate('/');
+			} else {
+				// update
+				newCourse.id = courseId;
+				dispatch(editCourse({ courseId, newCourse, token }));
+				alert('Course has been edited!');
+				setTimeout(() => navigate('/'), 1000);
+			}
 		}
 	}
 
