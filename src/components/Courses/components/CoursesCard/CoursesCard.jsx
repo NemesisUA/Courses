@@ -7,7 +7,7 @@ import { Button } from '../../../../common';
 import { getCourseDuration, formatCreationDate } from '../../../../helpers';
 
 import styles from './coursesCard.module.css';
-import { deleteCourse } from '../../../../store/courses/coursesSlice';
+import { deleteCourse } from '../../../../store/courses/thunk';
 
 function CoursesCard({
 	id,
@@ -21,15 +21,20 @@ function CoursesCard({
 	const dispatch = useDispatch();
 	const authorsAll = useSelector((state) => state.authors.authors);
 
+	const userRole = useSelector((state) => state.user.role);
+	const token = useSelector((state) => state.user.token);
+
 	function navigateCourse() {
 		navigate(`/courses/${id}`);
 	}
 
 	function handleDelete() {
-		dispatch(deleteCourse({ id }));
+		dispatch(deleteCourse({ id, token }));
 	}
 
-	function handleEdit() {}
+	function handleEdit() {
+		navigate(`/courses/update/${id}`);
+	}
 
 	return (
 		<div className={styles.card}>
@@ -47,7 +52,7 @@ function CoursesCard({
 							authors
 								.map(
 									(authorId) =>
-										authorsAll.filter((author) => author.id === authorId)[0]
+										authorsAll?.filter((author) => author.id === authorId)[0]
 											?.name
 								)
 								.join(', ')}
@@ -62,16 +67,21 @@ function CoursesCard({
 					</p>
 					<div className={styles.buttonsBlock}>
 						<Button buttonText='show course' onClick={navigateCourse} />
-						<Button
-							buttonText=''
-							styleAdditional='deleteIco'
-							onClick={handleDelete}
-						/>
-						<Button
-							buttonText=''
-							styleAdditional='editIco'
-							onClick={handleEdit}
-						/>
+
+						{userRole === 'admin' && (
+							<div className={styles.buttonsBlock}>
+								<Button
+									buttonText=''
+									styleAdditional='deleteIco'
+									onClick={handleDelete}
+								/>
+								<Button
+									buttonText=''
+									styleAdditional='editIco'
+									onClick={handleEdit}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

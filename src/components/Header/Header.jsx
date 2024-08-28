@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from './components/Logo/Logo';
 import { Button } from '../../common';
 import { formatUserName } from '../../helpers';
-import { logoutUser } from '../../store/user/userSlice';
+import { requestLogout } from '../../store/user/thunk';
 
 import styles from './header.module.css';
 
@@ -20,7 +20,8 @@ const Header = () => {
 	let hideUserAndLogout = pathname === '/login' || pathname === '/registration';
 
 	function handleLogout() {
-		dispatch(logoutUser());
+		dispatch(requestLogout());
+
 		navigate('/login');
 	}
 

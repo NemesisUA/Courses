@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
+import React, { useLayoutEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../../common';
 import { NewCourseForm } from './components';
 import { checkNewCourseErrors } from '../../helpers';
-import { addCourse } from '../../store/courses/coursesSlice';
 
-import styles from './createCourse.module.css';
+import styles from './CourseForm.module.css';
+import { addCourse, editCourse } from '../../store/courses/thunk';
 
-const CreateCourse = () => {
+const CourseForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const token = useSelector((state) => state.user.token);
+	const courses = useSelector((state) => state.courses.courses);
+	const authors = useSelector((state) => state.authors.authors);
+
+	const location = useLocation();
+	const currentPath = location.pathname;
 
 	const [form, setForm] = useState({
 		title: '',
@@ -23,6 +29,34 @@ const CreateCourse = () => {
 	const [courseAuthors, setCourseAuthors] = useState([]);
 
 	const [errors, setErrors] = useState({});
+
+	const { courseId } = useParams();
+	let courseInfo = courses?.find((course) => course.id === courseId);
+
+	if (currentPath !== '/courses/add') {
+		if (!courseInfo) navigate('/404');
+	} else courseInfo = {};
+
+	const {
+		title = '',
+		description = '',
+		duration = '',
+		authors: authorsIDs = [],
+	} = courseInfo;
+
+	useLayoutEffect(() => {
+		setForm({
+			title,
+			description,
+			duration,
+		});
+		setCourseAuthors(
+			authorsIDs.map((authorID) =>
+				authors.find((author) => author.id === authorID)
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleChange = (e) => {
 		// numbers only
@@ -44,20 +78,25 @@ const CreateCourse = () => {
 
 		if (Object.keys(newErrors).length === 0) {
 			const courseAuthorsIds = courseAuthors.map((author) => author.id);
-			const id = uuidv4();
 
 			const newCourse = {
-				id: id,
 				title: form.title,
 				description: form.description,
 				duration: +form.duration,
-				creationDate: new Date().toDateString(),
 				authors: courseAuthorsIds,
 			};
 
-			dispatch(addCourse(newCourse));
-			alert('New corse was created!');
-			navigate('/');
+			if (currentPath === '/courses/add') {
+				// create new
+				dispatch(addCourse({ newCourse, token }));
+				alert('Course has been created!');
+				navigate('/');
+			} else {
+				// update
+				newCourse.id = courseId;
+				dispatch(editCourse({ courseId, newCourse, token }));
+				setTimeout(() => navigate('/'), 300);
+			}
 		}
 	}
 
@@ -80,6 +119,7 @@ const CreateCourse = () => {
 				courseAuthors={courseAuthors}
 				setCourseAuthors={setCourseAuthors}
 				errors={errors}
+				authors={authors}
 			/>
 
 			<div className={styles.buttonsContainer}>
@@ -94,4 +134,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default CourseForm;

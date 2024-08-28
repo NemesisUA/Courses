@@ -11,7 +11,10 @@ const CourseAuthorsItem = ({
 }) => {
 	function deleteAuthor(idx) {
 		setCourseAuthors((prev) => prev.filter((author) => author.id !== idx));
-		setAuthorAccessible((prev) => [...prev, { id: idx, name }]);
+		setAuthorAccessible((prev) => [
+			...prev.filter((author) => author.id !== idx),
+			{ id: idx, name },
+		]);
 	}
 
 	return (

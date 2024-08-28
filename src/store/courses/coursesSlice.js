@@ -1,37 +1,51 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { coursesAPI } from '../services/coursesAPI';
+import { fetchCourses } from './thunk';
 
 const initialState = {
 	courses: [],
+	loading: false,
+	error: null,
 };
 
 const coursesSlice = createSlice({
 	name: 'courses',
 	initialState,
 	reducers: {
-		setCourses: (state, action) => {
-			state.courses = action.payload;
+		courseAdded: (state, action) => {
+			state.courses = [...state.courses, action.payload.addedCourse];
 		},
-		addCourse: (state, action) => {
-			state.courses = [...state.courses, action.payload];
+		courseUpdated: (state, action) => {
+			state.courses = state.courses
+				.filter((course) => course.id !== action.payload.addedCourse.id)
+				.push(action.payload.addedCourse);
 		},
-		deleteCourse: (state, action) => {
+		courseDeleted: (state, action) => {
 			state.courses = state.courses.filter(
 				(course) => course.id !== action.payload.id
 			);
 		},
-		updateCourse: () => {},
 	},
+
 	extraReducers: (builder) => {
-		builder.addMatcher(
-			coursesAPI.endpoints.getCourses.matchFulfilled,
-			(state, action) => {
-				state.courses = action.payload.result;
-			}
-		);
+		builder
+			.addCase(fetchCourses.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchCourses.fulfilled, (state, action) => {
+				state.loading = false;
+				state.error = null;
+				state.courses = action.payload;
+			})
+			.addCase(fetchCourses.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload;
+				state.courses = [];
+			});
 	},
 });
 
-export const { setCourses, addCourse, deleteCourse } = coursesSlice.actions;
+export const { setCourses, courseAdded, courseDeleted, courseUpdated } =
+	coursesSlice.actions;
 
 export default coursesSlice.reducer;

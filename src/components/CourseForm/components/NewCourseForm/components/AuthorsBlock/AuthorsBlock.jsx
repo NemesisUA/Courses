@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addAuthor } from '../../../../../../store/authors/authorsSlice';
 import { Button, Input } from '../../../../../../common';
 import AuthorItem from '../AuthorItem/AuthorItem';
 import CourseAuthorsItem from '../CourseAuthorsItem/CourseAuthorsItem';
+import { addAuthor } from '../../../../../../store/authors/thunk';
 
 import styles from './authorsBlock.module.css';
 
 const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 	const dispatch = useDispatch();
+	const token = useSelector((state) => state.user.token);
 	const authorsAll = useSelector((state) => state.authors.authors);
 
 	const [authorAccessible, setAuthorAccessible] = useState(authorsAll);
@@ -19,7 +20,7 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 	const [newAuthorName, setNewAuthorName] = useState('');
 	const [newAuthorError, setNewAuthorError] = useState('');
 
-	function handleCreateAuthor(e) {
+	async function handleCreateAuthor(e) {
 		e.preventDefault();
 
 		if (newAuthorName.length < 2) {
@@ -27,10 +28,11 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 			return;
 		}
 		setNewAuthorError('');
-		const newAuthor = { id: uuidv4(), name: newAuthorName };
+		const newAuthor = { name: newAuthorName };
 
-		dispatch(addAuthor(newAuthor));
-		setAuthorAccessible([...authorAccessible, newAuthor]);
+		const result = await dispatch(addAuthor({ newAuthor, token }));
+
+		setAuthorAccessible([...authorAccessible, result.payload]);
 		setNewAuthorName('');
 	}
 
@@ -54,14 +56,20 @@ const AuthorsBlock = ({ courseAuthors, setCourseAuthors }) => {
 				<h3>Authors List</h3>
 				<ul>
 					{authorAccessible.length > 0 &&
-						authorAccessible.map((author) => (
-							<AuthorItem
-								key={author.id}
-								{...author}
-								setCourseAuthors={setCourseAuthors}
-								setAuthorAccessible={setAuthorAccessible}
-							/>
-						))}
+						authorAccessible
+							.filter(
+								(author) =>
+									courseAuthors.map((item) => item.id).includes(author.id) ===
+									false
+							)
+							.map((author) => (
+								<AuthorItem
+									key={author.id}
+									{...author}
+									setCourseAuthors={setCourseAuthors}
+									setAuthorAccessible={setAuthorAccessible}
+								/>
+							))}
 				</ul>
 			</div>
 
