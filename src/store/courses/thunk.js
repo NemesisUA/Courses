@@ -5,11 +5,14 @@ export const fetchCourses = createAsyncThunk(
 	'courses/fetchCourses',
 	async function (token, { rejectWithValue }) {
 		try {
-			const response = await fetch('http://localhost:4000/courses/all', {
-				headers: {
-					Authorization: token,
-				},
-			});
+			const response = await fetch(
+				'https://courses-api-a3hw.onrender.com/courses/all',
+				{
+					headers: {
+						Authorization: token,
+					},
+				}
+			);
 
 			const result = await response.json();
 
@@ -28,12 +31,15 @@ export const deleteCourse = createAsyncThunk(
 	'courses/deleteCourse',
 	async function ({ id, token }, { dispatch, rejectWithValue }) {
 		try {
-			const response = await fetch(`http://localhost:4000/courses/${id}`, {
-				headers: {
-					Authorization: token,
-				},
-				method: 'DELETE',
-			});
+			const response = await fetch(
+				`https://courses-api-a3hw.onrender.com/courses/${id}`,
+				{
+					headers: {
+						Authorization: token,
+					},
+					method: 'DELETE',
+				}
+			);
 
 			const result = await response.json();
 

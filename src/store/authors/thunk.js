@@ -5,11 +5,14 @@ export const fetchAuthors = createAsyncThunk(
 	'authors/fetchAuthors',
 	async function (token, { rejectWithValue }) {
 		try {
-			const response = await fetch('http://localhost:4000/authors/all', {
-				headers: {
-					Authorization: token,
-				},
-			});
+			const response = await fetch(
+				'https://courses-api-a3hw.onrender.com/authors/all',
+				{
+					headers: {
+						Authorization: token,
+					},
+				}
+			);
 
 			const result = await response.json();
 
@@ -28,15 +31,18 @@ export const addAuthor = createAsyncThunk(
 	'authors/addAuthor',
 	async function ({ newAuthor, token }, { dispatch, rejectWithValue }) {
 		try {
-			const response = await fetch(`http://localhost:4000/authors/add`, {
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json',
-				},
-				method: 'POST',
+			const response = await fetch(
+				`https://courses-api-a3hw.onrender.com/authors/add`,
+				{
+					headers: {
+						Authorization: token,
+						'Content-Type': 'application/json',
+					},
+					method: 'POST',
 
-				body: JSON.stringify(newAuthor),
-			});
+					body: JSON.stringify(newAuthor),
+				}
+			);
 
 			const result = await response.json();
 

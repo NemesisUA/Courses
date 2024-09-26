@@ -6,11 +6,14 @@ export const fetchUserRole = createAsyncThunk(
 	'user/fetchUserRole',
 	async function (token, { rejectWithValue }) {
 		try {
-			const response = await fetch('http://localhost:4000/users/me', {
-				headers: {
-					Authorization: token,
-				},
-			});
+			const response = await fetch(
+				'https://courses-api-a3hw.onrender.com/users/me',
+				{
+					headers: {
+						Authorization: token,
+					},
+				}
+			);
 
 			const result = await response.json();
 
@@ -37,12 +40,15 @@ export const requestLogout = createAsyncThunk(
 	async function (_, { rejectWithValue, dispatch, getState }) {
 		const token = getState().user.token;
 		try {
-			const response = await fetch('http://localhost:4000/logout', {
-				headers: {
-					Authorization: token,
-				},
-				method: 'DELETE',
-			});
+			const response = await fetch(
+				'https://courses-api-a3hw.onrender.com/logout',
+				{
+					headers: {
+						Authorization: token,
+					},
+					method: 'DELETE',
+				}
+			);
 
 			if (!response.ok) {
 				throw new Error('Failed to logout');
