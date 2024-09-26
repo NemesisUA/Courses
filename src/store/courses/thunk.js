@@ -59,15 +59,18 @@ export const addCourse = createAsyncThunk(
 	'courses/addCourse',
 	async function ({ newCourse, token }, { dispatch, rejectWithValue }) {
 		try {
-			const response = await fetch(`http://localhost:4000/courses/add`, {
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json',
-				},
-				method: 'POST',
+			const response = await fetch(
+				`https://courses-api-a3hw.onrender.com/courses/add`,
+				{
+					headers: {
+						Authorization: token,
+						'Content-Type': 'application/json',
+					},
+					method: 'POST',
 
-				body: JSON.stringify(newCourse),
-			});
+					body: JSON.stringify(newCourse),
+				}
+			);
 
 			const result = await response.json();
 
@@ -91,15 +94,18 @@ export const editCourse = createAsyncThunk(
 		{ dispatch, rejectWithValue }
 	) {
 		try {
-			const response = await fetch(`http://localhost:4000/courses/${id}`, {
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json',
-				},
-				method: 'PUT',
+			const response = await fetch(
+				`https://courses-api-a3hw.onrender.com/courses/${id}`,
+				{
+					headers: {
+						Authorization: token,
+						'Content-Type': 'application/json',
+					},
+					method: 'PUT',
 
-				body: JSON.stringify(newCourse),
-			});
+					body: JSON.stringify(newCourse),
+				}
+			);
 
 			const result = await response.json();
 
