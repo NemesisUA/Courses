@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { courseDeleted } from './coursesSlice';
+import { courseDeleted, courseAdded, courseUpdated } from './coursesSlice';
 
 export const fetchCourses = createAsyncThunk(
 	'courses/fetchCourses',
@@ -79,7 +79,7 @@ export const addCourse = createAsyncThunk(
 			}
 
 			const addedCourse = result.result;
-			//dispatch(courseAdded({ addedCourse }));
+			dispatch(courseAdded({ addedCourse }));
 			return addedCourse;
 		} catch (error) {
 			return rejectWithValue(error.message);
@@ -115,7 +115,7 @@ export const editCourse = createAsyncThunk(
 
 			const updatedCourse = result.result;
 
-			//dispatch(courseUpdated({ updatedCourse }));
+			dispatch(courseUpdated({ updatedCourse }));
 
 			return updatedCourse;
 		} catch (error) {
